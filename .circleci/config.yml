@@ -96,7 +96,6 @@ jobs:
           path: /tmp/test-results
           
   local_scan:
-#     executor: neuvector/neuvector-orb
     docker:
       - image: docker:stable-git
     steps:
@@ -105,11 +104,9 @@ jobs:
       - run:
           name: Load Docker Image layer
           command: |
-            docker ps
             docker load -i /home/circleci/workspace/docker/${CIRCLE_PROJECT_REPONAME}-ci.tar
-            docker ps
 workflows:
-  version: 2
+  version: 2.1
   build-and-scan-image:
     jobs:
       - build
