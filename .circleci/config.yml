@@ -81,7 +81,7 @@ workflows:
     jobs:
       - build
       - neuvector/scan-image:
-          required:
+          requires:
             - build
           context: myContext
           registry_url: 'https://registry.hub.docker.com/'
