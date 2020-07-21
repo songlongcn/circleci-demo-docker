@@ -5,6 +5,7 @@ orbs:
   kube-orb: circleci/kubernetes@0.11.0
 jobs:
   build:
+    executor: neuvector/neuvector-orb
     docker:
       # using custom image, see .circleci/images/primary/Dockerfile
       - image: circleci/cci-demo-docker-primary:0.0.2
