@@ -68,27 +68,61 @@ jobs:
             docker build -t songlongtj/cci-demo-docker:$TAG .
             docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
             docker push songlongtj/cci-demo-docker:$TAG
-
+      - neuvector/scan-image:
+          context: myContext
+          registry_url: ''
+          repository: songlongtj/cci-demo-docker
+          tag: $TAG
+          scan_layers: false
+          high_vul_to_fail: 5
+          medium_vul_to_fail: 5
+      - run:
+          name: Save Docker image
+          command: |
+            rm -rf /home/circleci/workspace/docker/
+            mkdir /home/circleci/workspace/docker/ -p
+            docker save -o /home/circleci/workspace/docker/${CIRCLE_PROJECT_REPONAME}-ci.tar songlongtj/cci-demo-docker:$TAG
+        - persist_to_workspace:
+            root: /home/circleci/workspace/
+            paths:
+              - docker/*
+              
       - store_artifacts:
           path: /tmp/test-results
           destination: raw-test-output
 
       - store_test_results:
           path: /tmp/test-results
+          
+  local_scan:
+    docker:
+      - image: docker:stable-git
+    steps:
+      - attach_workspace:
+          at: /home/circleci/workspace/
+      - run:
+          name: Load Docker Image layer
+          command: |
+            docker ps
+            docker load -i /home/circleci/workspace/docker/${CIRCLE_PROJECT_REPONAME}-ci.tar
+            docker ps
 workflows:
   version: 2
   build-and-scan-image:
     jobs:
       - build
-      - neuvector/scan-image:
+      - local_scan:
           requires:
             - build
-          context: myContext
-          registry_url: 'https://registry.hub.docker.com/'
-          repository: songlongtj/cci-demo-docker
-          tag: 'latest'
-          scan_layers: false
-          high_vul_to_fail: 5
-          medium_vul_to_fail: 5
+#       - neuvector/scan-image:
+#           requires:
+#             - build
+#           context: myContext
+#           registry_url: 'https://registry.hub.docker.com/'
+#           repository: songlongtj/cci-demo-docker
+#           tag: 'latest'
+#           scan_layers: false
+#           high_vul_to_fail: 5
+#           medium_vul_to_fail: 5
             
           
