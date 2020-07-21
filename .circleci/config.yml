@@ -5,7 +5,6 @@ orbs:
   kube-orb: circleci/kubernetes@0.11.0
 jobs:
   build:
-    executor: neuvector/neuvector-orb
     docker:
       # using custom image, see .circleci/images/primary/Dockerfile
       - image: circleci/cci-demo-docker-primary:0.0.2
@@ -69,14 +68,14 @@ jobs:
             docker build -t songlongtj/cci-demo-docker:$TAG .
             docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
             docker push songlongtj/cci-demo-docker:$TAG
-      - neuvector/scan-image:
-          context: myContext
-          registry_url: ''
-          repository: songlongtj/cci-demo-docker
-          tag: $TAG
-          scan_layers: false
-          high_vul_to_fail: 5
-          medium_vul_to_fail: 5
+#       - neuvector/scan-image:
+#           context: myContext
+#           registry_url: ''
+#           repository: songlongtj/cci-demo-docker
+#           tag: $TAG
+#           scan_layers: false
+#           high_vul_to_fail: 5
+#           medium_vul_to_fail: 5
       - run:
           name: Save Docker image
           command: |
@@ -96,8 +95,9 @@ jobs:
           path: /tmp/test-results
           
   local_scan:
-    docker:
-      - image: docker:stable-git
+    executor: neuvector/neuvector-orb
+#     docker:
+#       - image: docker:stable-git
     steps:
       - attach_workspace:
           at: /home/circleci/workspace/
