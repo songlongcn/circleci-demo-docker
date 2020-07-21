@@ -95,9 +95,9 @@ jobs:
           path: /tmp/test-results
           
   local_scan:
-    executor: neuvector/neuvector-orb
-#     docker:
-#       - image: docker:stable-git
+#     executor: neuvector/neuvector-orb
+    docker:
+      - image: docker:stable-git
     steps:
       - attach_workspace:
           at: /home/circleci/workspace/
