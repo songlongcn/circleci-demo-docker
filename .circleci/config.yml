@@ -132,18 +132,18 @@ workflows:
   build-and-scan-image:
     jobs:
       - build
-      - local_scan:
-          requires:
-            - build
-#       - neuvector/scan-image:
+#       - local_scan:
 #           requires:
 #             - build
-#           context: myContext
-#           registry_url: 'https://registry.hub.docker.com/'
-#           repository: songlongtj/cci-demo-docker
-#           tag: 'latest'
-#           scan_layers: false
-#           high_vul_to_fail: 5
-#           medium_vul_to_fail: 5
+      - neuvector/scan-image:
+#           requires:
+#             - build
+          context: myContext
+          registry_url: 'https://registry.hub.docker.com/'
+          repository: songlongtj/cci-demo-docker
+          tag: 'latest'
+          scan_layers: false
+          high_vul_to_fail: 5
+          medium_vul_to_fail: 5
             
           
