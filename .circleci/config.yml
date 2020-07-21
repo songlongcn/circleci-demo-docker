@@ -97,7 +97,7 @@ jobs:
           
   local_scan:
     docker:
-      - image: docker:stable-git
+      - image: circleci/cci-demo-docker-primary:0.0.2
     steps:
       - attach_workspace:
           at: /home/circleci/workspace/
