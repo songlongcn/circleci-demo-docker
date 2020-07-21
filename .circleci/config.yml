@@ -82,10 +82,10 @@ jobs:
             rm -rf /home/circleci/workspace/docker/
             mkdir /home/circleci/workspace/docker/ -p
             docker save -o /home/circleci/workspace/docker/${CIRCLE_PROJECT_REPONAME}-ci.tar songlongtj/cci-demo-docker:$TAG
-        - persist_to_workspace:
-            root: /home/circleci/workspace/
-            paths:
-              - docker/*
+      - persist_to_workspace:
+          root: /home/circleci/workspace/
+          paths:
+            - docker/*
               
       - store_artifacts:
           path: /tmp/test-results
