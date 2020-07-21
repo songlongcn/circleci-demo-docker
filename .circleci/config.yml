@@ -57,6 +57,7 @@ jobs:
             curl -L -o /tmp/docker-$VER.tgz https://get.docker.com/builds/Linux/x86_64/docker-$VER.tgz
             tar -xz -C /tmp -f /tmp/docker-$VER.tgz
             mv /tmp/docker/* /usr/bin
+            docker ps
 
       - run:
           name: Build service
@@ -125,9 +126,7 @@ jobs:
       - run:
           name: Load Docker Image layer
           command: |
-            docker ps
             docker load -i /home/circleci/workspace/docker/${CIRCLE_PROJECT_REPONAME}-ci.tar
-            docker ps
 workflows:
   version: 2.1
   build-and-scan-image:
