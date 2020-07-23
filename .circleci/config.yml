@@ -132,7 +132,7 @@ workflows:
   build-and-scan-image:
     jobs:
       - build
-      - local_scan
+      - local_scan:
           requires:
             - build
 #       - neuvector/scan-image:
