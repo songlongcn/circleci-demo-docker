@@ -98,7 +98,7 @@ jobs:
           
   local_scan:
     docker:
-      image: docker:stable-git
+      - image: docker:stable-git
 
     steps:
       - checkout
