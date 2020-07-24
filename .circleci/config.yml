@@ -98,7 +98,7 @@ jobs:
           
   local_scan:
     docker:
-      image: default
+      image: alpine
 
     steps:
       - checkout
