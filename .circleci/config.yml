@@ -121,14 +121,14 @@ jobs:
             docker ps
             docker load -i /home/circleci/workspace/docker/${CIRCLE_PROJECT_REPONAME}-ci.tar
             docker ps
-      - neuvector/scan-image:
-          context: myContext
-          registry_url: 'https://registry.hub.docker.com/'
-          repository: library/alpine
-          tag: 'latest'
-          scan_layers: false
-          high_vul_to_fail: 5
-          medium_vul_to_fail: 5
+#       - neuvector/scan-image:
+#           context: myContext
+#           registry_url: 'https://registry.hub.docker.com/'
+#           repository: library/alpine
+#           tag: 'latest'
+#           scan_layers: false
+#           high_vul_to_fail: 5
+#           medium_vul_to_fail: 5
           
 workflows:
   version: 2.1
