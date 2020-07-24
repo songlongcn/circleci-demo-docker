@@ -98,7 +98,7 @@ jobs:
           
   local_scan:
     docker:
-      image: buildpack-deps:trusty
+      image: docker:stable-git
 
     steps:
       - checkout
