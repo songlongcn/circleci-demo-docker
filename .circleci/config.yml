@@ -98,7 +98,7 @@ jobs:
           
   local_scan:
     docker:
-      image: alpine
+      image: buildpack-deps:trusty
 
     steps:
       - checkout
