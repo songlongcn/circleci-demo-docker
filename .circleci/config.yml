@@ -102,7 +102,8 @@ jobs:
 
     steps:
       - checkout
-      - neuvector/scan-image
+#       - neuvector/scan-image
+      - setup_remote_docker
       - attach_workspace:
           at: /home/circleci/workspace/
 #       # This should go into custom primary image, here's only for the sake of explanation
@@ -117,6 +118,7 @@ jobs:
       - run:
           name: Load Docker Image layer
           command: |
+            docker ps
             docker load -i /home/circleci/workspace/docker/${CIRCLE_PROJECT_REPONAME}-ci.tar
             docker ps
       - neuvector/scan-image:
