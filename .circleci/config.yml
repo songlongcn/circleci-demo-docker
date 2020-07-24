@@ -97,7 +97,7 @@ jobs:
           path: /tmp/test-results
           
   local_scan:
-    machine:
+    docker:
       image: default
 
     steps:
