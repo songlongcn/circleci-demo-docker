@@ -96,6 +96,18 @@ jobs:
       - store_test_results:
           path: /tmp/test-results
           
+  local_neuvector:
+    docker:
+      - image: docker:stable-git
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: install nevuector scanner
+          command: |
+            echo "IP:"
+            cat /etc/hosts | awk '/docker/ { print $1 }'
+            
   local_scan:
     docker:
       - image: docker:stable-git
@@ -134,10 +146,11 @@ workflows:
   version: 2.1
   build-and-scan-image:
     jobs:
-      - build
-      - local_scan:
-          requires:
-            - build
+#       - build
+      - local_neuvector
+#       - local_scan:
+#           requires:
+#             - build
 #       - neuvector/scan-image:
 # #           requires:
 # #             - build
