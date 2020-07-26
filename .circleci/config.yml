@@ -105,7 +105,9 @@ jobs:
       - run:
           name: install nevuector scanner
           command: |
-            echo "IP:"
+            echo "docker host: $DOCKER_HOST"
+            echo "IP: "
+            echo "$DOCKER_HOST" | awk -F: '{print $1}'
             cat /etc/hosts | awk '/docker/ { print $1 }'
             
   local_scan:
