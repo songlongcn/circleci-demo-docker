@@ -107,8 +107,7 @@ jobs:
           command: |
             echo "docker host: $DOCKER_HOST"
             echo "IP: "
-            echo "$DOCKER_HOST" | awk -F: '{print $1}'
-            cat /etc/hosts | awk '/docker/ { print $1 }'
+            echo "$DOCKER_HOST" | awk -F: '{print $2 $3}'
             
   local_scan:
     docker:
